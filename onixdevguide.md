@@ -2,7 +2,7 @@
 
 This guide is a comprehensive walkthrough for developers who want to set up and run a Beckn-compliant network locally using [Beckn Onix](https://github.com/beckn/beckn-onix).
 
-For a complete ONIX setup guide, refer to the [ONIX Dev Guide](https://github.com/keyabist/onixguide/blob/main/onixdevguide.md).
+For a complete ONIX setup guide, refer to the [ONIX Dev Guide](https://github.com/beckn/beckn-onix/blob/main/docs/user_guide.md).
 
 It provides detailed steps to configure your local environment, run containers, make key configuration changes, and perform end-to-end transactions using Postman.
 

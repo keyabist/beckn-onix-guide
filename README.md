@@ -100,14 +100,14 @@ Open the Registry Admin Panel (e.g. http://localhost:3030)
 
 ## 🛠️ Configuration Files
 
-### 1. `default.conf`
+### 1. `config/default.yml`
 
 Contains environment-wide settings like hostnames, ports, and service names.
 
 Open an editor to view or edit:
 
 ```
-default.conf
+config/default.yml
 ```
 
 ---

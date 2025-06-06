@@ -1,4 +1,4 @@
-# 🧭 Beckn Onix – Developer Setup Guide
+#  Beckn Onix – Developer Setup Guide
 
 Welcome to the **Beckn Onix** developer guide — your one-stop walkthrough to set up, run, and test a local Beckn network on your machine.
 

@@ -51,7 +51,7 @@ Check that MongoDB, Redis, RabbitMQ, gateway, registry, bap/bpp containers are a
 
 ## 🔐 Login to Registry UI
 
-Open the Registry Admin Panel (e.g. http://localhost:3050)
+Open the Registry Admin Panel (e.g. http://localhost:3030)
 
 - **Username**: `root`
 - **Password**: `root`

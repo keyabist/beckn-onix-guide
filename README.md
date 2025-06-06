@@ -177,7 +177,7 @@ docker exec -it redis redis-cli FLUSHALL
 
 ---
 
-## 🔗 [Detailed End-to-End Transaction Guide](./end2endtxn.md)
+ 🔗 [Detailed End-to-End Transaction Guide](./end2endtxn.md)
 
 ---
 

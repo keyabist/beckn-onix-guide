@@ -93,45 +93,42 @@ Open the Registry Admin Panel (e.g. http://localhost:3030)
 
 ## 🧪 Run a Sample Transaction (Retail)
 
-### 1. Import Collection
-
-👉 [Postman Collection – Local Retail 1.1.0](https://github.com/beckn/beckn-sandbox/blob/main/artefacts/local-retail/Local-Retail-Sandbox-110.postman_collection.json)
-
-### 2. Set Postman Environment
-
-| Key                   | Example Value             |
-|-----------------------|---------------------------|
-| `bap_client_url`      | `http://localhost:5001`   |
-| `bap_uri`             | `http://bap-network:5001` |
-| `bap_id`              | `bap-network`             |
-| `bpp_id`              | `bpp-network`             |
-| `bpp_uri`             | `http://localhost:6002`   |
-
-
-Update these in the **Variables tab** of your collection.
+👉 For full Postman setup, variable definitions, and flow sequence:  
+📄 [End-to-End Transaction Guide](./end2endtxn.md)
 
 ---
 
-### 3. Call These APIs in Order
+## 🛠️ Configuration Files
 
-1. `search`
-2. `select`
-3. `init`
-4. `confirm`
-5. *(Optional)*: `status`, `track`, `cancel`
+### 1. `default.conf`
 
----
+Contains environment-wide settings like hostnames, ports, and service names.
 
-## 🧹 Disable Telemetry & Layer2 (Optional for Local)
+Open an editor to view or edit:
 
-Inside each Protocol Server:
-
-```bash
-docker exec -it bap-client sh
-vi config/default.yml
+```
+default.conf
 ```
 
-Replace the telemetry section with:
+---
+
+### 2. `config/default.yml` (inside each protocol container)
+
+Controls telemetry, Layer 2 usage, Redis config, and sync intervals.
+
+To access and edit it:
+
+```bash
+docker exec -it <container-name> sh
+```
+
+Open:
+
+```
+config/default.yml
+```
+
+Example: disable telemetry and Layer 2 enforcement
 
 ```yaml
 telemetry:
@@ -145,7 +142,7 @@ useLayer2Config: false
 mandateLayer2Config: false
 ```
 
-Then:
+Restart the internal services:
 
 ```bash
 pm2 restart 0 1 2
@@ -153,7 +150,6 @@ exit
 ```
 
 Repeat for:
-
 - `sandbox-api`
 - `bap-client`
 - `bap-network`
@@ -171,7 +167,9 @@ docker logs -f gateway
 docker logs -f registry
 ```
 
-Clear Redis cache if stuck:
+---
+
+## 🧹 Clear Redis Cache (if stuck)
 
 ```bash
 docker exec -it redis redis-cli FLUSHALL
@@ -179,9 +177,7 @@ docker exec -it redis redis-cli FLUSHALL
 
 ---
 
-
-
-- 🧪 [Detailed End-to-End Transaction Guide](./end2endtxn.md)
+## 🔗 [Detailed End-to-End Transaction Guide](./end2endtxn.md)
 
 ---
 

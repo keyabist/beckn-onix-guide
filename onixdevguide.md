@@ -1,222 +1,196 @@
-# Beckn Onix – Local Setup & Developer Guide
+# 🧭 Beckn Onix – Developer Setup Guide
 
-This guide is a comprehensive walkthrough for developers who want to set up and run a Beckn-compliant network locally using [Beckn Onix](https://github.com/beckn/beckn-onix).
-
-For a complete ONIX setup guide, refer to the [ONIX User Guide](https://github.com/beckn/beckn-onix/blob/main/docs/user_guide.md).
-
-It provides detailed steps to configure your local environment, run containers, make key configuration changes, and perform end-to-end transactions using Postman.
+Welcome to the **Beckn Onix** developer guide — your one-stop walkthrough to set up, run, and test a local Beckn network on your machine.
 
 ---
 
-## 🧠 Who This Is For
+## 📦 What Is Beckn Onix?
 
-This guide is intended for:
+Beckn Onix is a local reference implementation of the Beckn Protocol — simulating key roles (BAP, BPP, Registry, Gateway) in an open network.
 
-- Developers new to the Beckn protocol
-- Anyone contributing to or testing Beckn-based apps locally
-- Those who have **basic knowledge of Docker, Postman, and Linux**
+It helps you:
+- Understand Beckn’s API and message flow
+- Spin up a local Beckn-compatible network
+- Run test transactions with Postman
+- Extend services for your domain
 
 ---
 
-## 🧰 Prerequisites
+## ⚙️ Prerequisites
 
-Make sure you have the following installed:
+Install these tools before starting:
 
-- **Docker** and **Docker Compose**
-- **Node.js** and **npm**
-- **Postman**
-- **Git**
-- A Unix-based terminal (Linux/macOS or WSL on Windows)
+- Docker & Docker Compose
+- Node.js & npm
+- Postman
+- Git
+- Unix-like shell (Linux/macOS or WSL on Windows)
 
 ---
 
 ## 🚀 Getting Started
 
-### 1. Clone the Repository
+### 1. Clone & Run Setup
 
 ```bash
 git clone https://github.com/beckn/beckn-onix.git
 cd beckn-onix
-```
-
-### 2. Make the Script Executable
-
-```bash
 chmod +x beckn-onix.sh
-```
-
-### 3. Run the Setup Script
-
-This command sets up the full network using Docker:
-
-```bash
 ./beckn-onix.sh
 ```
 
-Once completed, the containers for BAP, BPP, registry, gateway, etc. will be up and running.
-
----
-
-👉 After you've completed this base setup, continue below for configuration changes and deeper usage.
-
-
-# Setting Up a Beckn Network Locally
-
-Here are some of the key commands to be used.
-
----
-
-## 1. Configuration Changes
+### 2. Verify Containers
 
 ```bash
-vi default.conf
-:wq   # to save and exit
+docker ps -a
 ```
+
+Check that MongoDB, Redis, RabbitMQ, gateway, registry, bap/bpp containers are all up.
 
 ---
 
-## 2. Container Commands
+## 🔐 Login to Registry UI
 
-```bash
-docker restart gateway
-docker restart registry
-docker compose down -v
-docker stop <filename>  # eg: docker stop sandbox-api
-```
+Open the Registry Admin Panel (e.g. http://localhost:3050)
 
----
-
-## 3. Admin Login
-
-Use the following credentials to log in:
-
-- **Username**: `root`  
+- **Username**: `root`
 - **Password**: `root`
 
-These commands were part of the configuration process for setting up the system, particularly when working with sandbox API and network configurations.
+![Registry Login](./assets/images/registry-login.png)
+
+---
+## 🧭 UI Workflow – Set BAP Status to `SUBSCRIBED`
+
+1. Go to the **Admin** tab  
+2. Click **Network Participant**  
+3. Click the ✏️ icon on `bap-network`
+
+![Edit Participant Table](./assets/images/registry-network-participant-edit.png)
+
+4. Switch to the **Network Role** tab
+
+![Network Role Tab](./assets/images/registry-network-participant-role.png)
+
+5. Click ✏️ to edit the role  
+6. Set **Status** to `SUBSCRIBED`  
+7. Click **Done**
+
+![Change Status to SUBSCRIBED](./assets/images/registry-network-role-subscribed.png)
 
 ---
 
-## 4. Remove Unused Docker Images
+## 🌐 Add a Network Domain
+
+1. Go to **Beckn > Network Domain**
+2. Click **Add**
+3. Fill:
+   - Name: `retail:1.1.0`
+   - Description: `retail:1.1.0`
+4. Click **Save & More**
+
+
+---
+
+## 🧪 Run a Sample Transaction (Retail)
+
+### 1. Import Collection
+
+👉 [Postman Collection – Local Retail 1.1.0](https://github.com/beckn/beckn-sandbox/blob/main/artefacts/local-retail/Local-Retail-Sandbox-110.postman_collection.json)
+
+### 2. Set Postman Environment
+
+| Key                   | Example Value             |
+|-----------------------|---------------------------|
+| `bap_client_url`      | `http://localhost:5001`   |
+| `bap_uri`             | `http://bap-network:5001` |
+| `bap_id`              | `bap-network`             |
+| `bpp_id`              | `bpp-network`             |
+| `bpp_uri`             | `http://localhost:6002`   |
+
+
+Update these in the **Variables tab** of your collection.
+
+---
+
+### 3. Call These APIs in Order
+
+1. `search`
+2. `select`
+3. `init`
+4. `confirm`
+5. *(Optional)*: `status`, `track`, `cancel`
+
+---
+
+## 🧹 Disable Telemetry & Layer2 (Optional for Local)
+
+Inside each Protocol Server:
 
 ```bash
-docker image ls
-docker image prune
-```
-
----
-
-## 5. Change User Status to `SUBSCRIBED`
-
-1. Login as admin (use `root`)
-2. Go to the **Admin** tab
-3. Click on **Network Participant**
-4. Click on the **edit** icon for `bap-network`
-5. Navigate to the **Network Role** tab
-6. Click on the **edit** icon
-7. Under **Status**, change to `SUBSCRIBED`
-8. Click on **Done**
-
-## 6. Adding a Network Domain
-
-1. Go to the **Beckn** tab.
-2. Click on **Network Domain**.
-3. Click on **Add**.
-4. Fill in the fields:
-   - **Name**: `retail:1.1.0`
-   - **Description**: `retail:1.1.0`
-5. Click on **Save & More**.
-
----
-
-## 7. Import Postman Collection
-
-If you want to test locally and perform an end-to-end transaction, you can import the following Postman collection into Postman:
-
-👉 [Local Retail Sandbox: Postman Collection](https://github.com/beckn/beckn-sandbox/blob/main/artefacts/local-retail/Local-Retail-Sandbox-110.postman_collection.json)
-
----
-
-# Editing `config/default.yml` for Beckn Adapters
-
-Each Beckn Adapter (also known as a Protocol Server or PS) has its own configuration file that defines runtime behavior such as telemetry, Layer 2 usage, etc.
-
-To disable telemetry or modify runtime configs, follow these steps for each Protocol Server container.
-
----
-
-## 1. Open the Config File
-
-Inside the terminal, run:
-
-```bash
-docker exec -it sandbox-api sh
+docker exec -it bap-client sh
 vi config/default.yml
 ```
 
----
-
-## 2. Delete Existing Block
-
-- Press the `i` key to enter insert mode.
-- Move your cursor to the **bottom-most line** of the YAML file.
-- Hold down the `d` key and **move the cursor upward** until you've deleted everything up to the `telemetry` block.
-
----
-
-## 3. Paste the Following Configuration
-
-Replace the deleted section with:
+Replace the telemetry section with:
 
 ```yaml
 telemetry:
-    enabled: false
-    url: ""
-    batchSize: 100
-    # In minutes
-    syncInterval: 30
-    redis_db: 3
+  enabled: false
+  url: ""
+  batchSize: 100
+  syncInterval: 30
+  redis_db: 3
+
 useLayer2Config: false
 mandateLayer2Config: false
 ```
 
----
-
-## 4. Save and Exit
-
-- Press `Esc`
-- Type `:wq` and hit Enter to save and quit
-
----
-
-## 5. Restart Processes
-
-Once you've exited `config/default.yml`, run:
+Then:
 
 ```bash
 pm2 restart 0 1 2
 exit
 ```
 
----
+Repeat for:
 
-## 6. Repeat for Other Services
-
-Repeat the same process for the following services by replacing `sandbox-api` in the first command:
-
+- `sandbox-api`
 - `bap-client`
 - `bap-network`
 - `bpp-client`
 - `bpp-network`
 
-**Example**:
+---
+
+## 📜 View Logs
 
 ```bash
-docker exec -it bap-client sh
+docker logs -f bap-client
+docker logs -f bpp-network
+docker logs -f gateway
+docker logs -f registry
+```
+
+Clear Redis cache if stuck:
+
+```bash
+docker exec -it redis redis-cli FLUSHALL
 ```
 
 ---
-## For Debugging
 
-```bash
-docker logs -f bap-client  # or bpp-network etc.
+
+
+- 🧪 [Detailed End-to-End Transaction Guide](./end2endtxn.md)
+
+---
+
+## 🙌 Done!
+
+You’ve successfully set up a Beckn-compliant local network and can now run test transactions, explore logs, and build apps on top of the protocol.
+
+For support:  
+👉 Join the [Beckn Discord](https://discord.com/invite/beckn)  
+🌐 Visit [https://becknprotocol.io](https://becknprotocol.io)
+
+---

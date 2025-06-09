@@ -181,6 +181,16 @@ docker exec -it redis redis-cli FLUSHALL
 
 ---
 
+ ## ⚡️ Want to Try the Energy Domain?
+
+If you're looking to simulate energy transactions like DER management, EV charging, or smart appliances, follow this domain-specific setup guide:
+
+👉 **[Energy Transactions Setup Guide](./energy-txns.md)**  
+It walks you through setting up a Strapi-based BPP adapter, MySQL, Postman collections, and more.
+
+
+---
+
 ## 🙌 Done!
 
 You’ve successfully set up a Beckn-compliant local network and can now run test transactions, explore logs, and build apps on top of the protocol.

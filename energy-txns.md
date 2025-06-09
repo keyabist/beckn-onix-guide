@@ -232,7 +232,7 @@ npm install
 
 You can test energy catalog flows using this Postman collection:
 
-👉 [DEG Starter Kit – Postman Collection](https://github.com/beckn/missions/blob/main/DEG/STARTER_KIT/DEG_Starter_KIT.postman_collection.json)
+👉 [DEG Starter Kit – Postman Collection](https://github.com/beckn/missions/blob/main/DEG/STARTER_KIT/DEG_Starter_Kit.postman_collection.json)
 
 ---
 

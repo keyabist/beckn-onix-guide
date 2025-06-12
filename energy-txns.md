@@ -158,6 +158,7 @@ docker ps -a
 Then run:
 
 ```bash
+docker exec -i mysql2-container mysql -uroot -proot -e "CREATE DATABASE strapi_deg_local;"
 docker exec -it mysql2-container mysql -uroot -proot -e "SET GLOBAL sort_buffer_size = 67108864;"
 docker exec -it mysql2-container mysql -uroot -proot
 ```

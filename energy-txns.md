@@ -37,31 +37,32 @@ npm run build
 After cloning and setting up the plugin, your directory should look like this:
 
 ```
-strapi-bap-bpp/
-├── docker-compose.yml
-├── mysql2.cnf
-├── strapi_dump.sql               # (Optional: if you have a DB dump)
-└── src/
-    ├── api/
-    ├── config/
-    │   ├── admin.js
-    │   ├── database.js
-    │   ├── middleware.js
-    │   ├── plugins.js            # << You will edit this file
-    │   └── server.js
-    ├── extensions/
-    ├── plugins/
-    │   └── plugins/              # cloned from strapi-plugins
-    │       └── beckn-bpp-adapter/
-    │           ├── package.json
-    │           ├── README.md
-    │           ├── strapi-admin.js
-    │           ├── config/
-    │           ├── controllers/
-    │           ├── routes/
-    │           ├── services/
-    │           └── ...
-    └── index.js
+parent-folder
+├──docker-compose.yml
+├──mysql2.cnf
+├──strapi-bap-bpp/
+    ├── strapi_dump.sql               # (Optional: if you have a DB dump)
+    └── src/
+        ├── api/
+        ├── config/
+        │   ├── admin.js
+        │   ├── database.js
+        │   ├── middleware.js
+        │   ├── plugins.js            # << You will edit this file
+        │   └── server.js
+        ├── extensions/
+        ├── plugins/
+        │   └── plugins/              # cloned from strapi-plugins
+        │       └── beckn-bpp-adapter/
+        │           ├── package.json
+        │           ├── README.md
+        │           ├── strapi-admin.js
+        │           ├── config/
+        │           ├── controllers/
+        │           ├── routes/
+        │           ├── services/
+        │           └── ...
+        └── index.js
 ```
 
 
